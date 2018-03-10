@@ -82,7 +82,7 @@ func svglatex(inline bool) error {
 	}
 
 	dvi := filepath.Join(dirName, "in.dvi")
-	dvcmd := exec.Command("dvisvgm", dvi, "--no-fonts", "--stdout", "--verbosity=1", "--zoom=-1")
+	dvcmd := exec.Command("dvisvgm", dvi, "--no-fonts", "--stdout", "--verbosity=1", "--zoom=-1", "--page=1-")
 	dvcmd.Stdout = os.Stdout
 	dvcmd.Stderr = os.Stderr
 	if err := dvcmd.Run(); err != nil {
