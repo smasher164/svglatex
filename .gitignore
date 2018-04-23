@@ -7,3 +7,4 @@
 !*.go
 !*.md
 !.gitignore
+!go.mod
