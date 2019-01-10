@@ -25,6 +25,7 @@
 package main
 
 import (
+	"bytes"
 	"flag"
 	"fmt"
 	"io"
@@ -81,11 +82,20 @@ func svglatex(inline bool) error {
 		return err
 	}
 
+	var buf bytes.Buffer
 	dvi := filepath.Join(dirName, "in.dvi")
 	dvcmd := exec.Command("dvisvgm", dvi, "--no-fonts=1", "--stdout", "--verbosity=1", "--zoom=-1", "--page=1-")
-	dvcmd.Stdout = os.Stdout
+	dvcmd.Stdout = &buf
 	dvcmd.Stderr = os.Stderr
 	if err := dvcmd.Run(); err != nil {
+		return err
+	}
+
+	optcmd := exec.Command("svgo", "-i", "-", "-o", "-")
+	optcmd.Stdin = &buf
+	optcmd.Stdout = os.Stdout
+	optcmd.Stderr = os.Stderr
+	if err := optcmd.Run(); err != nil {
 		return err
 	}
 	return nil
