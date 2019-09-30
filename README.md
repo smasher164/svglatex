@@ -8,9 +8,10 @@ go get -u github.com/smasher164/svglatex
 
 svglatex [-inline] < foo.tex
 ```
-It is a wrapper over `latex` and `dvisvgm` and makes the following assumptions and promises:
+It is a wrapper over `latex`, [`dvisvgm`](https://dvisvgm.de/), and [`svgo`](https://github.com/svg/svgo) and makes the following assumptions and promises:
 * `latex` is already installed and has an "-output-directory" flag (used to store temporary files).
 * `dvisvgm` is already installed.
+* `svgo` is already installed.
 * The latex document is input through Stdin.
 * When successful, it will output the SVG markup to Stdout (everything else is diverted to Stderr).
 
